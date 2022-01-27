@@ -37,7 +37,7 @@ public class Utils {
         return a;
     }
 
-    private static Map<String, Integer> sortStringIntegerMap(Map<String, Integer> unsortedMap, final boolean order) {
+    public static Map<String, Integer> sortStringIntegerMap(Map<String, Integer> unsortedMap, final boolean order) {
         List<Map.Entry<String, Integer>> list = new LinkedList<>(unsortedMap.entrySet());
 
         // Sorting the list based on values
@@ -58,7 +58,7 @@ public class Utils {
         return sortedMap;
     }
 
-    private static Map<String, Double> sortStringDoubleMap(Map<String, Double> unsortedMap, final boolean order) {
+    public static Map<String, Double> sortStringDoubleMap(Map<String, Double> unsortedMap, final boolean order) {
         List<Map.Entry<String, Double>> list = new LinkedList<>(unsortedMap.entrySet());
 
         list.sort((o1, o2) -> {
