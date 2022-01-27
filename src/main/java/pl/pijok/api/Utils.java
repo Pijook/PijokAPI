@@ -24,4 +24,12 @@ public class Utils {
         }
     }
 
+    public static double round(double a, int precision){
+        int multiplier = (int) Math.pow(10, precision);
+        a = a * multiplier;
+        a = (int) a;
+        a = a / multiplier;
+        return a;
+    }
+
 }
