@@ -2,6 +2,11 @@ package pl.pijok.api;
 
 import org.bukkit.Material;
 
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 public class Utils {
 
     public static boolean isMaterial(String a){
@@ -30,6 +35,46 @@ public class Utils {
         a = (int) a;
         a = a / multiplier;
         return a;
+    }
+
+    private static Map<String, Integer> sortStringIntegerMap(Map<String, Integer> unsortedMap, final boolean order) {
+        List<Map.Entry<String, Integer>> list = new LinkedList<>(unsortedMap.entrySet());
+
+        // Sorting the list based on values
+        list.sort((o1, o2) -> {
+            if (order) {
+                return o1.getValue().compareTo(o2.getValue());
+            } else {
+                return o2.getValue().compareTo(o1.getValue());
+            }
+        });
+
+        // Maintaining insertion order with the help of LinkedList
+        Map<String, Integer> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<String, Integer> entry : list) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap;
+    }
+
+    private static Map<String, Double> sortStringDoubleMap(Map<String, Double> unsortedMap, final boolean order) {
+        List<Map.Entry<String, Double>> list = new LinkedList<>(unsortedMap.entrySet());
+
+        list.sort((o1, o2) -> {
+            if (order) {
+                return o1.getValue().compareTo(o2.getValue());
+            } else {
+                return o2.getValue().compareTo(o1.getValue());
+            }
+        });
+
+        Map<String, Double> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<String, Double> entry : list) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap;
     }
 
 }
