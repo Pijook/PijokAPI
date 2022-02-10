@@ -2,10 +2,7 @@ package pl.pijok.api;
 
 import org.bukkit.Material;
 
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Utils {
 
@@ -75,6 +72,11 @@ public class Utils {
         }
 
         return sortedMap;
+    }
+
+    public static double randomDoubleInRange(double rangeMin, double rangeMax){
+        Random r = new Random();
+        return rangeMin + (rangeMax - rangeMin) * r.nextDouble();
     }
 
 }
