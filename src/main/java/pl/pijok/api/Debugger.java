@@ -3,12 +3,12 @@ package pl.pijok.api;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 
-public class Debug {
+public class Debugger {
 
-    private static final ConsoleCommandSender console = Bukkit.getConsoleSender();
-    private static String prefix = "[]";
+    private final ConsoleCommandSender console = Bukkit.getConsoleSender();
+    private String prefix = "[]";
 
-    public static void setPrefix(String a){
+    public void setPrefix(String a){
         prefix = a;
     }
 
@@ -16,7 +16,7 @@ public class Debug {
      * Sends string to console
      * @param a Message to send
      */
-    public static void log(String a) {
+    public void log(String a) {
         a = prefix + a;
         console.sendMessage(a.replace("&", "§"));
     }
@@ -25,17 +25,17 @@ public class Debug {
      * Sends red error to console
      * @param a Error to send
      */
-    public static void sendError(String a){
-        Debug.log("&c============");
-        Debug.log("&c" + a);
-        Debug.log("&c============");
+    public void sendError(String a){
+        log("&c============");
+        log("&c" + a);
+        log("&c============");
     }
 
     /**
      * Sends object to console
      * @param a Object to send
      */
-    public static void log(Object a) {
+    public void log(Object a) {
         a = prefix + a;
         console.sendMessage(String.valueOf(a).replace("&", "§"));
     }

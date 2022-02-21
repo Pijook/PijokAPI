@@ -14,20 +14,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConfigUtils {
+public class ConfigProvider {
 
-    private static Plugin plugin;
+    private PijokAPI pijokAPI;
+
+    public ConfigProvider(PijokAPI pijokAPI){
+        this.pijokAPI = pijokAPI;
+    }
 
     /**
      * Loads specified config from resources or plugin folder
      * @param configName Name of a config
      * @return Returns loaded config file or error if it doesn't exist
      */
-    public static YamlConfiguration load(String configName){
+    public YamlConfiguration load(String configName){
         YamlConfiguration config;
-        File file = new File(plugin.getDataFolder() + File.separator + configName);
+        File file = new File(pijokAPI.getPlugin().getDataFolder() + File.separator + configName);
         if (!file.exists())
-            plugin.saveResource(configName, false);
+            pijokAPI.getPlugin().saveResource(configName, false);
         config = new YamlConfiguration();
         try {
             config.load(file);
@@ -41,11 +45,11 @@ public class ConfigUtils {
         return config;
     }
 
-    public static YamlConfiguration load(String configName, String folder){
+    public YamlConfiguration load(String configName, String folder){
         YamlConfiguration config;
-        File file = new File(plugin.getDataFolder() + File.separator + folder + File.separator + configName);
+        File file = new File(pijokAPI.getPlugin().getDataFolder() + File.separator + folder + File.separator + configName);
         if (!file.exists())
-            plugin.saveResource(folder + File.separator + configName, false);
+            pijokAPI.getPlugin().saveResource(folder + File.separator + configName, false);
         config = new YamlConfiguration();
         try {
             config.load(file);
@@ -64,17 +68,17 @@ public class ConfigUtils {
      * @param c Yaml file
      * @param file File name
      */
-    public static void save(YamlConfiguration c, String file) {
+    public void save(YamlConfiguration c, String file) {
         try {
-            c.save(new File(plugin.getDataFolder(), file));
+            c.save(new File(pijokAPI.getPlugin().getDataFolder(), file));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void save(YamlConfiguration c, String folder, String file){
+    public void save(YamlConfiguration c, String folder, String file){
         try {
-            c.save(new File(plugin.getDataFolder() + File.separator + folder, file));
+            c.save(new File(pijokAPI.getPlugin().getDataFolder() + File.separator + folder, file));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -86,7 +90,7 @@ public class ConfigUtils {
      * @param path Path to location
      * @return Returns ready location
      */
-    public static Location getLocationFromConfig(YamlConfiguration configuration, String path){
+    public Location getLocationFromConfig(YamlConfiguration configuration, String path){
         double locationX = configuration.getDouble(path + ".x");
         double locationY = configuration.getDouble(path + ".y");
         double locationZ = configuration.getDouble(path + ".z");
@@ -103,7 +107,7 @@ public class ConfigUtils {
      * @param path Path to location where to save
      * @param location Location to save
      */
-    public static void saveLocationToConfig(YamlConfiguration configuration, String path, Location location){
+    public void saveLocationToConfig(YamlConfiguration configuration, String path, Location location){
         configuration.set(path + ".x", location.getX());
         configuration.set(path + ".y", location.getY());
         configuration.set(path + ".z", location.getZ());
@@ -116,12 +120,12 @@ public class ConfigUtils {
      * @param path
      * @return
      */
-    public static ItemStack getItemstack(YamlConfiguration configuration, String path){
+    public ItemStack getItemstack(YamlConfiguration configuration, String path){
 
         String materialName = configuration.getString(path + ".material");
 
         if(!Utils.isMaterial(materialName)){
-            Debug.sendError("Wrong material name (" + materialName + ") at " + path + ".material");
+            pijokAPI.getDebugger().sendError("Wrong material name (" + materialName + ") at " + path + ".material");
             materialName = "DIRT";
         }
 
@@ -131,7 +135,7 @@ public class ConfigUtils {
 
         if(configuration.contains(path + ".lore")){
             for(String a : configuration.getStringList(path + ".lore")){
-                lore.add(ChatUtils.fixColor(a));
+                lore.add(pijokAPI.getChatManager().fixColor(a));
             }
         }
 
@@ -144,14 +148,13 @@ public class ConfigUtils {
         String itemName = material.name();
 
         if(configuration.contains(path + ".name")){
-            itemName = ChatUtils.fixColor(configuration.getString(path + ".name"));
+            itemName = pijokAPI.getChatManager().fixColor(configuration.getString(path + ".name"));
         }
 
         ItemCreator creator = new ItemCreator(material, amount).setName(itemName).setLore(lore);
 
         if(configuration.contains(path + ".enchants")){
             for(String enchant : configuration.getConfigurationSection(path + ".enchants").getKeys(false)){
-                //itemStack.addUnsafeEnchantment(Enchantment.getByName(enchant), configuration.getInt(path + ".enchants." + enchant));
                 creator.addUnsafeEnchantment(Enchantment.getByName(enchant), configuration.getInt(path + ".enchants." + enchant));
             }
         }
@@ -159,8 +162,4 @@ public class ConfigUtils {
         return creator.toItemStack();
     }
 
-
-    public static void setPlugin(Plugin plugin) {
-        ConfigUtils.plugin = plugin;
-    }
 }

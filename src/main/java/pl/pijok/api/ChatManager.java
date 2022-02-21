@@ -4,11 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class ChatUtils {
+public class ChatManager {
 
-    private static String prefix;
+    private String prefix;
 
-    public static void setPrefix(String a){
+    public void setPrefix(String a){
         prefix = a;
     }
 
@@ -17,7 +17,7 @@ public class ChatUtils {
      * @param message Message to fix
      * @return Returns ready message
      */
-    public static String fixColor(String message){
+    public String fixColor(String message){
         message = message.replace("&","§");
         return message;
     }
@@ -26,9 +26,9 @@ public class ChatUtils {
      * Sends colored message to online Players
      * @param message Message to send
      */
-    public static void broadcast(String message){
+    public void broadcast(String message){
         for(Player player : Bukkit.getOnlinePlayers()){
-            ChatUtils.sendMessage(player, message);
+            sendMessage(player, message);
         }
     }
 
@@ -37,7 +37,7 @@ public class ChatUtils {
      * @param player Player that receives message
      * @param message Message to send
      */
-    public static void sendMessage(Player player, String message){
+    public void sendMessage(Player player, String message){
         player.sendMessage(fixColor(prefix + message));
     }
 
@@ -46,7 +46,7 @@ public class ChatUtils {
      * @param player CommandSender that receives message
      * @param message Message to send
      */
-    public static void sendMessage(CommandSender player, String message){
+    public void sendMessage(CommandSender player, String message){
         player.sendMessage(fixColor(prefix + message));
     }
 
