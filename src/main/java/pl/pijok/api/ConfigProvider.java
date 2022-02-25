@@ -124,7 +124,7 @@ public class ConfigProvider {
 
         String materialName = configuration.getString(path + ".material");
 
-        if(!Utils.isMaterial(materialName)){
+        if(!pijokAPI.getUtils().isMaterial(materialName)){
             pijokAPI.getDebugger().sendError("Wrong material name (" + materialName + ") at " + path + ".material");
             materialName = "DIRT";
         }
