@@ -14,6 +14,7 @@ public class PijokAPI {
         this.debugger = new Debugger();
         this.configProvider = new ConfigProvider(this);
         this.chatManager = new ChatManager();
+
     }
 
     public Plugin getPlugin() {
