@@ -8,13 +8,14 @@ public class PijokAPI {
     private Debugger debugger;
     private ConfigProvider configProvider;
     private ChatManager chatManager;
+    private Utils utils;
 
     public PijokAPI(Plugin plugin){
         this.plugin = plugin;
         this.debugger = new Debugger();
         this.configProvider = new ConfigProvider(this);
         this.chatManager = new ChatManager();
-
+        this.utils = new Utils();
     }
 
     public Plugin getPlugin() {
@@ -47,5 +48,9 @@ public class PijokAPI {
 
     public void setChatManager(ChatManager chatManager) {
         this.chatManager = chatManager;
+    }
+
+    public Utils getUtils() {
+        return utils;
     }
 }

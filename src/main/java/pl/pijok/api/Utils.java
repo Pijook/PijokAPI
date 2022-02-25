@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Utils {
 
-    public static boolean isMaterial(String a){
+    public boolean isMaterial(String a){
         try{
             Material.valueOf(a);
             return true;
@@ -16,7 +16,7 @@ public class Utils {
         }
     }
 
-    public static boolean isInteger(String a){
+    public boolean isInteger(String a){
         try{
             Integer.valueOf(a);
             return true;
@@ -26,7 +26,7 @@ public class Utils {
         }
     }
 
-    public static double round(double a, int precision){
+    public double round(double a, int precision){
         int multiplier = (int) Math.pow(10, precision);
         a = a * multiplier;
         a = (int) a;
@@ -34,7 +34,7 @@ public class Utils {
         return a;
     }
 
-    public static Map<String, Integer> sortStringIntegerMap(Map<String, Integer> unsortedMap, final boolean order) {
+    public Map<String, Integer> sortStringIntegerMap(Map<String, Integer> unsortedMap, final boolean order) {
         List<Map.Entry<String, Integer>> list = new LinkedList<>(unsortedMap.entrySet());
 
         // Sorting the list based on values
@@ -55,7 +55,7 @@ public class Utils {
         return sortedMap;
     }
 
-    public static Map<String, Double> sortStringDoubleMap(Map<String, Double> unsortedMap, final boolean order) {
+    public Map<String, Double> sortStringDoubleMap(Map<String, Double> unsortedMap, final boolean order) {
         List<Map.Entry<String, Double>> list = new LinkedList<>(unsortedMap.entrySet());
 
         list.sort((o1, o2) -> {
@@ -74,7 +74,7 @@ public class Utils {
         return sortedMap;
     }
 
-    public static double randomDoubleInRange(double rangeMin, double rangeMax){
+    public double randomDoubleInRange(double rangeMin, double rangeMax){
         Random r = new Random();
         return rangeMin + (rangeMax - rangeMin) * r.nextDouble();
     }
