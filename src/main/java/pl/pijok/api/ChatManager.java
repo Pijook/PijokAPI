@@ -1,6 +1,7 @@
 package pl.pijok.api;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -18,7 +19,7 @@ public class ChatManager {
      * @return Returns ready message
      */
     public String fixColor(String message){
-        message = message.replace("&","§");
+        message = ChatColor.translateAlternateColorCodes('&', message);
         return message;
     }
 

@@ -1,5 +1,5 @@
 main: pl.pijok.api.API
 name: PijokAPI
-version: 1.0.0
+version: 1.1.4
 api-version: 1.13
 author: Pijok
